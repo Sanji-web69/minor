@@ -10,7 +10,7 @@
     </div>
     <div class="header-actions">
       <a href="{{ url_for('logout') }}" class="btn-modern-logout">Logout</a>
-      <button class="back-btn">◀</button>
+      <button class="back-btn">◀️</button>
     </div>
   </header>
 
@@ -52,27 +52,34 @@
     </div>
   </section>
 
-
+  <!-- Scholarships View -->
   <section id="scholarships-section" style="display: none;">
-    <h1>Matched Scholarships</h1>
-  
     {% if scholarships %}
-    <div class="scholarship-card-container">
-      {% for title in scholarships %}
+      {% for s in scholarships %}
         <div class="scholarship-card">
-          <h3>{{ title }}</h3>
+          <h3>{{ s.title }}</h3>
+          <p><strong>Overview:</strong> {{ s.overview }}</p>
+        
+          <p><strong>How to Apply:</strong> {{ s.how_to_apply }}</p>
         </div>
       {% endfor %}
-    </div>
     {% else %}
-      <p>No matching scholarships found.</p>
+      <p>No eligible scholarships found based on your profile.</p>
     {% endif %}
   </section>
- 
-  </ul>
+
+  <!-- Optional Debug Info (remove in production) -->
+  <section style="margin-top: 2rem; font-size: 0.9rem; color: gray;">
+    <pre>
+[DEBUG]
+Gender: {{ profile.gender }}
+Category: {{ profile.category }}
+State: {{ profile.state }}
+Scholarships Found: {{ scholarships|length }}
+    </pre>
+  </section>
+
 </div>
-
-
 
 <script>
   const profileTab = document.getElementById("profile-tab");
@@ -86,7 +93,6 @@
     profileSection.style.display = "block";
     scholarshipsSection.style.display = "none";
   });
-
   scholarshipsTab.addEventListener("click", () => {
     scholarshipsTab.classList.add("active");
     profileTab.classList.remove("active");

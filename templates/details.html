@@ -1,0 +1,19 @@
+
+<link rel="stylesheet" href="/mine-main/static/details.css">
+
+ <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="ScholarQuest Logo"/>
+            <h2>ScholarQuest</h2>
+          </div>
+
+<div class="container">
+  <h1>{{ scholarship.title }}</h1>
+  <h3>Overview</h3>
+  <p>{{ scholarship.overview }}</p>
+
+  <h3>How to Apply</h3>
+  <p>{{ scholarship.how_to_apply }}</p>
+
+  <a href="{{ url_for('dashboard') }}" class="btn">← Back to Dashboard</a>
+</div>
+

@@ -82,6 +82,7 @@ def login():
     return render_template("login.html")
 
 
+
 @app.route("/dashboard")
 def dashboard():
     if "username" not in session:
@@ -119,53 +120,44 @@ def dashboard():
         "parent_occupation": profile_data.parent_occupation
     }
 
-    gender = profile_data.gender
-    category = profile_data.category
-    state = profile_data.state
+    gender = profile_data.gender.strip().lower()
+    category = profile_data.category.strip().lower()
+    state = profile_data.state.strip().lower()
 
     conn = sqlite3.connect('users.db')
     cursor = conn.cursor()
     try:
+        # Gender condition
+        if gender == 'male':
+            gender_condition = """
+                LOWER(REPLACE(overview, ' ', '')) LIKE '%gender:forall%'
+            """
+        else:
+            gender_condition = """
+                (LOWER(REPLACE(overview, ' ', '')) LIKE '%gender:female%'
+                 OR LOWER(REPLACE(overview, ' ', '')) LIKE '%gender:forall%')
+            """
+
+        # Final query
         query = f"""
-            SELECT title
+            SELECT title, overview, how_to_apply
             FROM scholarships
-            WHERE
-                (
-                    LOWER(overview) LIKE '%gender:{gender.lower()}%'
-                    AND LOWER(overview) LIKE '%category:{category.lower()}%'
-                    AND LOWER(overview) LIKE '%state:{state.lower()}%'
-                )
-                OR
-                (
-                    LOWER(overview) LIKE '%gender:for all%'
-                    AND LOWER(overview) LIKE '%category:{category.lower()}%'
-                    AND LOWER(overview) LIKE '%state:{state.lower()}%'
-                )
-                OR
-                (
-                    LOWER(overview) LIKE '%state:all india%'
-                    AND LOWER(overview) LIKE '%gender:{gender.lower()}%'
-                    AND LOWER(overview) LIKE '%category:{category.lower()}%'
-                )
-                OR
-                (
-                    LOWER(overview) LIKE '%category:for all%'
-                    AND LOWER(overview) LIKE '%gender:{gender.lower()}%'
-                    AND LOWER(overview) LIKE '%state:{state.lower()}%'
-                )
+            WHERE {gender_condition}
+              AND (LOWER(REPLACE(overview, ' ', '')) LIKE '%category:{category}%' OR LOWER(REPLACE(overview, ' ', '')) LIKE '%category:forall%')
+              AND (LOWER(REPLACE(overview, ' ', '')) LIKE '%state:{state}%' OR LOWER(REPLACE(overview, ' ', '')) LIKE '%state:allindia%')
         """
 
         cursor.execute(query)
-        scholarships = cursor.fetchall()
+        rows = cursor.fetchall()
     finally:
         conn.close()
 
-    # Extract only titles from matched scholarships
-    matched_titles = [scholarship[0] for scholarship in scholarships]
+    matched_scholarships = [
+        {'title': row[0], 'overview': row[1], 'how_to_apply': row[2]}
+        for row in rows
+    ]
 
-    print("Matched Scholarships:", matched_titles)  # Debug output
-
-    return render_template('dashboard.html', scholarships=matched_titles, profile=profile)
+    return render_template('dashboard.html', scholarships=matched_scholarships, profile=profile)
 
     
 @app.route("/register", methods=["GET", "POST"])
