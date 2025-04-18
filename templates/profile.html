@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ user.username }}'s Profile</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome, {{ user.username }}</h1>
+    <h2>Profile Details</h2>
+
+    {% if profile %}
+    <ul>
+      <li><strong>Full Name:</strong> {{ profile.full_name }}</li>
+      <li><strong>DOB:</strong> {{ profile.dob }}</li>
+      <li><strong>Gender:</strong> {{ profile.gender }}</li>
+      <li><strong>Nationality:</strong> {{ profile.nationality }}</li>
+      <li><strong>Address:</strong> {{ profile.address }}</li>
+      <li><strong>State:</strong> {{ profile.state }}</li>
+      <li><strong>Email:</strong> {{ profile.email }}</li>
+      <li><strong>Category:</strong> {{ profile.category }}</li>
+      <li><strong>Income:</strong> {{ profile.income }}</li>
+      <li><strong>Parent’s Occupation:</strong> {{ profile.parent_occupation }}</li>
+      <li><strong>Disability:</strong> {{ profile.disability }}</li>
+      <li><strong>Contact:</strong> {{ profile.contact }}</li>
+      <li><strong>Education Level:</strong> {{ profile.education_level }}</li>
+      <li><strong>Institution:</strong> {{ profile.institution }}</li>
+      <li><strong>Board:</strong> {{ profile.board }}</li>
+      <li><strong>Year of Passing:</strong> {{ profile.passing_year }}</li>
+      <li><strong>10th Score:</strong> {{ profile.score_10 }}</li>
+      <li><strong>12th Score:</strong> {{ profile.score_12 }}</li>
+      <li><strong>UG Score:</strong> {{ profile.score_ug }}</li>
+      <li><strong>PG Score:</strong> {{ profile.score_pg }}</li>
+      <li><strong>Current CGPA:</strong> {{ profile.current_cgpa }}</li>
+    </ul>
+    {% else %}
+      <p>No profile data found.</p>
+    {% endif %}
+
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+  </div>
+</body>
+</html>

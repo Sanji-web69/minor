@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block body %}
+<link rel="stylesheet" href="/static/dash.css">
+
+<div class="container">
+  <header class="dashboard-header">
+    <div class="logo">
+      <img src="/static/images/logo.png" alt="logo" />
+      <span>ScholarQuest</span>
+    </div>
+    <div class="header-actions">
+      <a href="{{ url_for('logout') }}" class="btn-modern-logout">Logout</a>
+      <button class="back-btn">◀</button>
+    </div>
+  </header>
+
+  <section class="profile-section">
+    <img src="/static/images/profile.png" alt="Profile Picture" class="profile-pic" />
+    <h2>{{ profile.full_name }}</h2>
+    <div class="tabs">
+      <button class="tab active" id="profile-tab">Profile</button>
+      <button class="tab" id="scholarships-tab">Scholarships</button>
+    </div>
+  </section>
+
+  <!-- Profile View -->
+  <section id="profile-section">
+    <button class="edit-profile-btn">Edit Profile</button>
+    <div class="profile-details">
+      <div class="column">
+        <p><strong>Full Name:</strong> {{ profile.full_name }}</p>
+        <p><strong>Date of birth:</strong> {{ profile.dob }}</p>
+        <p><strong>Gender:</strong> {{ profile.gender }}</p>
+        <p><strong>Nationality:</strong> {{ profile.nationality }}</p>
+        <p><strong>Permanent Address:</strong> {{ profile.address }}</p>
+        <p><strong>State:</strong> {{ profile.state }}</p>
+        <p><strong>Email:</strong> {{ profile.email }}</p>
+        <p><strong>Category:</strong> {{ profile.category }}</p>
+        <p><strong>Monthly Income:</strong> {{ profile.income }}</p>
+      </div>
+      <div class="column">
+        <p><strong>Disability (if any):</strong> {{ profile.disability }}</p>
+        <p><strong>Contact No:</strong> {{ profile.contact }}</p>
+        <p><strong>Current Educational Level:</strong> {{ profile.education_level }}</p>
+        <p><strong>School/College/University Name:</strong> {{ profile.institution }}</p>
+        <p><strong>Board/University Name:</strong> {{ profile.board }}</p>
+        <p><strong>Year of Passing:</strong> {{ profile.passing_year }}</p>
+        <p><strong>Previous Academic Scores:</strong> 10th: {{ profile.score_10 }} | 12th: {{ profile.score_12 }} | UG: {{ profile.score_ug }} | PG: {{ profile.score_pg }}</p>
+        <p><strong>Current CGPA/Percentage:</strong> {{ profile.current_cgpa }}</p>
+        <p><strong>Parent’s occupation:</strong> {{ profile.parent_occupation }}</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="scholarships-section" style="display: none;">
+    <h1>Matched Scholarships</h1>
+  
+    {% if scholarships %}
+    <div class="scholarship-card-container">
+      {% for title in scholarships %}
+        <div class="scholarship-card">
+          <h3>{{ title }}</h3>
+        </div>
+      {% endfor %}
+    </div>
+    {% else %}
+      <p>No matching scholarships found.</p>
+    {% endif %}
+  </section>
+ 
+  </ul>
+</div>
+
+
+
+<script>
+  const profileTab = document.getElementById("profile-tab");
+  const scholarshipsTab = document.getElementById("scholarships-tab");
+  const profileSection = document.getElementById("profile-section");
+  const scholarshipsSection = document.getElementById("scholarships-section");
+
+  profileTab.addEventListener("click", () => {
+    profileTab.classList.add("active");
+    scholarshipsTab.classList.remove("active");
+    profileSection.style.display = "block";
+    scholarshipsSection.style.display = "none";
+  });
+
+  scholarshipsTab.addEventListener("click", () => {
+    scholarshipsTab.classList.add("active");
+    profileTab.classList.remove("active");
+    scholarshipsSection.style.display = "block";
+    profileSection.style.display = "none";
+  });
+</script>
+{% endblock %}

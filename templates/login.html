@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block body %}
+<head>
+    <link rel ="stylesheet" href="/static/login.css" />
+</head>
+    <div class="container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="ScholarQuest Logo"/>
+            <h2>ScholarQuest</h2>
+          </div>
+          <div class="flex">
+        <div class="login-card">
+          
+          <h1>WELCOME!</h1>
+          <form id="auth-form" action="{{url_for('login')}}" method="post">
+            <label>Email</label>
+            <input type="email" name="username" placeholder="Enter Username" class="input-field" required/>
+            
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter Password" class="input-field" required/>
+
+            <input type="submit" value="Login" class="input-field" onclick="setActionForm('login')"/>
+    <input type="button" value="Register if New User" class="input-field" onclick="setActionForm('register')"/>   
+            
+            
+          </form>
+        </div>
+        <div class="illustration">
+          <img src="{{ url_for('static', filename='images/boy.png') }}" alt="Boy Illustration"/>
+        </div>
+    </div>
+    </div>
+    
+
+
+
+<script>
+    function setActionForm(action){
+        let form=document.getElementById('auth-form');
+        if(action==='login'){
+            form.action="{{url_for('login')}}";
+            form.method='post';
+            form.submit();
+        }
+        else if (action==='register'){
+            form.action="{{url_for('register')}}";
+            form.method='post';
+            form.submit();
+        }
+    }
+</script>
+
+
+{% endblock %}

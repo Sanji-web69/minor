@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ScholarQuest Registration</title>
+  <link rel="stylesheet" href="/static/registration.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <img src="/static/images/logo.png" alt="logo">
+        <h1>ScholarQuest</h1>
+      </div>
+      <button class="back-btn">&#9664;</button>
+    </header>
+
+    <div class="form-box">
+      <form method="POST">
+        <div class="column">
+          <label>Full Name</label>
+          <input type="text" name="full_name">
+
+          <label>Date of birth</label>
+          <input type="date" name="dob">
+
+          <label>Gender</label>
+          <input type="text" name="gender">
+
+          <label>Nationality</label>
+          <input type="text" name="nationality">
+
+          <label>Permanent Address</label>
+          <input type="text" name="address">
+
+          <label>State</label>
+          <input type="text" name="state">
+
+          <label>Email</label>
+          <input type="email" name="email">
+        </div>
+
+        <div class="column">
+          <label>Category (Gen /OBC /Sc / St)</label>
+          <input type="text" name="category">
+
+          <label>Monthly Income</label>
+          <input type="text" name="income">
+
+          <label>Parent’s occupation</label>
+          <input type="text" name="parent_occupation">
+
+          <label>Disability(if any)</label>
+          <input type="text" name="disability">
+
+          <label>Contact No.</label>
+          <input type="text" name="contact">
+
+          <label>Current Educational Level</label>
+          <input type="text" name="education_level">
+
+          <label>School/ College /University</label>
+          <input type="text" name="institution">
+        </div>
+
+        <div class="column">
+          <label>Board/ University Name</label>
+          <input type="text" name="board">
+
+          <label>Year of Passing</label>
+          <input type="text" name="passing_year">
+
+          <label>Previous Academic Scores: 10th</label>
+          <input type="text" name="score_10">
+
+          <label>12th</label>
+          <input type="text" name="score_12">
+
+          <label>UG</label>
+          <input type="text" name="score_ug">
+
+          <label>PG</label>
+          <input type="text" name="score_pg">
+
+          <label>Current CGPA/Percentage</label>
+          <input type="text" name="current_cgpa">
+
+          <button type="submit" class="submit-btn">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

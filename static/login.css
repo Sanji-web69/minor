@@ -1,0 +1,133 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #fff8e5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding: 40px;
+}
+
+/* Logo and text outside the card */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 80px;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+}
+
+.logo h2 {
+  font-size: 24px;
+  color: #000;
+}
+
+/* Container with form and image */
+.container {
+  gap: 60px;
+}
+
+/* Bigger login card */
+.login-card {
+  background-color: #fff0b8;
+  padding: 60px;
+  border-radius: 24px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  width: 750px;
+  height:650px;
+  margin-right: 250px;
+}
+.flex{
+  display:flex;
+  justify-content: space-between;
+
+}
+
+h1 {
+  font-size: 40px;
+  margin-bottom: 45px;
+  color: #000;
+  display:flex;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  margin: 15px 5px;
+  font-size: 20px;
+}
+
+/* Styled inputs */
+input[type="email"],
+input[type="password"] {
+  padding: 18px;
+  border: none;
+  border-radius: 12px;
+  outline: 1px solid #8B8A8A;
+  font-size: 20px;
+  background-color: #fff0b8;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+input[type="submit"] {
+  padding: 18px;
+  border: none;
+  color:white;
+  border-radius: 18px;
+  outline: none;
+  font-size: 20px;
+  margin:25px;
+  background-color: #FFB833;
+}
+input[type="button"] {
+  background-color: #fff0b8;
+  border: none;
+  color: #FFB833;
+  outline: none;
+  font-size: 25px;
+  font-weight: 150px;
+  
+}
+
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  font-size: 14px;
+}
+
+.options a {
+  color: #000;
+  text-decoration: none;
+}
+
+.register {
+  text-align: center;
+  text-decoration: none;
+  color: #ff9c00;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Enlarged illustration */
+.illustration img {
+  height: 710px;
+  
+}
