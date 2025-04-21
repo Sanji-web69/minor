@@ -10,7 +10,7 @@
     </div>
     <div class="header-actions">
       <a href="{{ url_for('logout') }}" class="btn-modern-logout">Logout</a>
-      <button class="back-btn">◀️</button>
+      
     </div>
   </header>
 
@@ -25,7 +25,9 @@
 
   <!-- Profile View -->
   <section id="profile-section">
-    <button class="edit-profile-btn">Edit Profile</button>
+    <a href="{{ url_for('edit_profile') }}">
+      <button class="edit-profile-btn">Edit Profile</button>
+    </a>
     <div class="profile-details">
       <div class="column">
         <p><strong>Full Name:</strong> {{ profile.full_name }}</p>
@@ -53,32 +55,29 @@
   </section>
 
   <!-- Scholarships View -->
-  <section id="scholarships-section" style="display: none;">
-    {% if scholarships %}
-      {% for s in scholarships %}
+<!-- Scholarships View -->
+<section id="scholarships-section" style="display: none;">
+  {% if scholarships %}
+    {% for s in scholarships %}
+      <a href="{{ url_for('scholarship_detail', id=s.id) }}" style="text-decoration: none; color: inherit;">
         <div class="scholarship-card">
           <h3>{{ s.title }}</h3>
-          <p><strong>Overview:</strong> {{ s.overview }}</p>
-        
-          <p><strong>How to Apply:</strong> {{ s.how_to_apply }}</p>
+         
         </div>
-      {% endfor %}
-    {% else %}
-      <p>No eligible scholarships found based on your profile.</p>
-    {% endif %}
-  </section>
+      </a>
+    {% endfor %}
+  {% else %}
+    <p>No eligible scholarships found based on your profile.</p>
+  {% endif %}
+</section>
+ <!-- Optional Debug Info (remove in production) -->
+ <section style="margin-top: 2rem; font-size: 0.9rem; color: gray;">
+  <pre>
 
-  <!-- Optional Debug Info (remove in production) -->
-  <section style="margin-top: 2rem; font-size: 0.9rem; color: gray;">
-    <pre>
-[DEBUG]
-Gender: {{ profile.gender }}
-Category: {{ profile.category }}
-State: {{ profile.state }}
+
 Scholarships Found: {{ scholarships|length }}
-    </pre>
-  </section>
-
+  </pre>
+</section>
 </div>
 
 <script>
@@ -93,6 +92,7 @@ Scholarships Found: {{ scholarships|length }}
     profileSection.style.display = "block";
     scholarshipsSection.style.display = "none";
   });
+
   scholarshipsTab.addEventListener("click", () => {
     scholarshipsTab.classList.add("active");
     profileTab.classList.remove("active");

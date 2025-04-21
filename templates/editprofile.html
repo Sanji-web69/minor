@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block body %}
+<link rel="stylesheet" href="/static/editprofile.css">
+
+<div class="edit-container">
+  <h2>Edit Your Profile</h2>
+  <form method="POST">
+
+    <label>Full Name</label>
+    <input type="text" name="full_name" value="{{ profile.full_name or '' }}">
+
+    <label>Date of Birth</label>
+    <input type="date" name="dob" value="{{ profile.dob or '' }}">
+
+    <label>Gender</label>
+    <select name="gender">
+      <option value="">Select</option>
+      <option value="male" {% if profile.gender == 'male' %}selected{% endif %}>Male</option>
+      <option value="female" {% if profile.gender == 'female' %}selected{% endif %}>Female</option>
+    </select>
+
+    <label>Nationality</label>
+    <input type="text" name="nationality" value="{{ profile.nationality or '' }}">
+
+    <label>Permanent Address</label>
+    <input type="text" name="address" value="{{ profile.address or '' }}">
+
+    <label>State</label>
+    <input type="text" name="state" value="{{ profile.state or '' }}">
+
+    <label>Email</label>
+    <input type="email" name="email" value="{{ profile.email or '' }}">
+
+    <label>Category</label>
+    <input type="text" name="category" value="{{ profile.category or '' }}">
+
+    <label>Monthly Income</label>
+    <input type="text" name="income" value="{{ profile.income or '' }}">
+
+    <label>Disability (if any)</label>
+    <input type="text" name="disability" value="{{ profile.disability or '' }}">
+
+    <label>Contact No</label>
+    <input type="text" name="contact" value="{{ profile.contact or '' }}">
+
+    <label>Current Educational Level</label>
+    <input type="text" name="education_level" value="{{ profile.education_level or '' }}">
+
+    <label>School/College/University Name</label>
+    <input type="text" name="institution" value="{{ profile.institution or '' }}">
+
+    <label>Board/University Name</label>
+    <input type="text" name="board" value="{{ profile.board or '' }}">
+
+    <label>Year of Passing</label>
+    <input type="text" name="passing_year" value="{{ profile.passing_year or '' }}">
+
+    <label>10th Score</label>
+    <input type="text" name="score_10" value="{{ profile.score_10 or '' }}">
+
+    <label>12th Score</label>
+    <input type="text" name="score_12" value="{{ profile.score_12 or '' }}">
+
+    <label>UG Score</label>
+    <input type="text" name="score_ug" value="{{ profile.score_ug or '' }}">
+
+    <label>PG Score</label>
+    <input type="text" name="score_pg" value="{{ profile.score_pg or '' }}">
+
+    <label>Current CGPA/Percentage</label>
+    <input type="text" name="current_cgpa" value="{{ profile.current_cgpa or '' }}">
+
+    <label>Parent's Occupation</label>
+    <input type="text" name="parent_occupation" value="{{ profile.parent_occupation or '' }}">
+
+    <button type="submit">Save Changes</button>
+  </form>
+</div>
+{% endblock %}

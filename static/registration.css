@@ -70,7 +70,7 @@ body {
     margin-bottom: 2px;
   }
   
-  input {
+  input, select {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -88,5 +88,6 @@ body {
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
+
   }
   

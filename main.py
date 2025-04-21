@@ -8,6 +8,7 @@ from flask import Flask, render_template,request, url_for, redirect,session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
+import re 
 
 
 app= Flask(__name__)
@@ -120,9 +121,10 @@ def dashboard():
         "parent_occupation": profile_data.parent_occupation
     }
 
-    gender = profile_data.gender.strip().lower()
-    category = profile_data.category.strip().lower()
-    state = profile_data.state.strip().lower()
+    gender = (profile_data.gender or "").strip().lower()
+    category = (profile_data.category or "").strip().lower()
+    state = (profile_data.state or "").strip().lower()
+
 
     conn = sqlite3.connect('users.db')
     cursor = conn.cursor()
@@ -140,11 +142,13 @@ def dashboard():
 
         # Final query
         query = f"""
-            SELECT title, overview, how_to_apply
+            SELECT id, title, overview, how_to_apply
             FROM scholarships
             WHERE {gender_condition}
-              AND (LOWER(REPLACE(overview, ' ', '')) LIKE '%category:{category}%' OR LOWER(REPLACE(overview, ' ', '')) LIKE '%category:forall%')
-              AND (LOWER(REPLACE(overview, ' ', '')) LIKE '%state:{state}%' OR LOWER(REPLACE(overview, ' ', '')) LIKE '%state:allindia%')
+              AND (LOWER(REPLACE(overview, ' ', '')) LIKE '%category:{category}%' 
+                   OR LOWER(REPLACE(overview, ' ', '')) LIKE '%category:forall%')
+              AND (LOWER(REPLACE(overview, ' ', '')) LIKE '%state:{state}%' 
+                   OR LOWER(REPLACE(overview, ' ', '')) LIKE '%state:allindia%')
         """
 
         cursor.execute(query)
@@ -153,11 +157,62 @@ def dashboard():
         conn.close()
 
     matched_scholarships = [
-        {'title': row[0], 'overview': row[1], 'how_to_apply': row[2]}
-        for row in rows
-    ]
+    {'id': row[0], 'title': row[1], 'overview': row[2], 'how_to_apply': row[3]}
+    for row in rows
+]
+
 
     return render_template('dashboard.html', scholarships=matched_scholarships, profile=profile)
+
+def parse_overview(overview_str):
+    fields = [
+        "Published on", "Status", "Category", "Type", 
+        "State", "Gender", "Amount", "Application Deadline", "Official Link"
+    ]
+    data = {}
+
+    for i, field in enumerate(fields):
+        # Build regex pattern dynamically
+        if i < len(fields) - 1:
+            next_field = fields[i + 1]
+            pattern = rf"{re.escape(field)}:(.*?){re.escape(next_field)}:"
+        else:
+            pattern = rf"{re.escape(field)}:(.*)"  # Last field: match until end
+
+        match = re.search(pattern, overview_str, re.IGNORECASE | re.DOTALL)
+        if match:
+            data[field] = match.group(1).strip()
+
+    return data
+
+@app.route("/scholarship/<int:id>")
+def scholarship_detail(id):
+    conn = sqlite3.connect('users.db')
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT title, overview, how_to_apply FROM scholarships WHERE id = ?", (id,))
+        result = cursor.fetchone()
+    finally:
+        conn.close()
+
+    if not result:
+        return "Scholarship not found", 404
+
+    scholarship = {
+        'title': result[0],
+        'overview': result[1],
+        'how_to_apply': result[2]
+    }
+
+    parsed_overview = parse_overview(scholarship['overview'])
+
+    # 👇 Split into steps by "Step", or by period followed by capital letter
+    raw_text = scholarship['how_to_apply']
+    apply_steps = re.split(r'(?=Step\s+\d+:)|(?<=\.)\s+(?=[A-Z])', raw_text)
+    apply_steps = [step.strip() for step in apply_steps if step.strip()]
+
+    return render_template('details.html', scholarship=scholarship, parsed_overview=parsed_overview, apply_steps=apply_steps)
+
 
     
 @app.route("/register", methods=["GET", "POST"])
@@ -178,7 +233,6 @@ def register():
             return redirect(url_for('form'))
     
     return render_template("register.html")
-
 
 @app.route("/logout")
 def logout():
@@ -224,7 +278,50 @@ def form():
     print(request.form)
 
 
-    return render_template("form.html", username=session['username'])
+    return render_template("form.html", username=session['username'])  
+
+
+
+@app.route('/editprofile', methods=['GET', 'POST'])
+def edit_profile():
+    if "username" not in session:
+        return redirect(url_for('login'))
+
+    user = User.query.filter_by(username=session['username']).first()
+    profile = UserProfile.query.filter_by(user_id=user.id).first()
+
+    if request.method == 'POST':
+        if profile:
+            profile.full_name = request.form.get('full_name')
+            profile.dob = request.form.get('dob')
+            profile.gender = request.form.get('gender')
+            profile.nationality = request.form.get('nationality')
+            profile.address = request.form.get('address')
+            profile.state = request.form.get('state')
+            profile.email = request.form.get('email')
+            profile.category = request.form.get('category')
+            profile.income = request.form.get('income')
+            profile.disability = request.form.get('disability')
+            profile.contact = request.form.get('contact')
+            profile.education_level = request.form.get('education_level')
+            profile.institution = request.form.get('institution')
+            profile.board = request.form.get('board')
+            profile.passing_year = request.form.get('passing_year')
+            profile.score_10 = request.form.get('score_10')
+            profile.score_12 = request.form.get('score_12')
+            profile.score_ug = request.form.get('score_ug')
+            profile.score_pg = request.form.get('score_pg')
+            profile.current_cgpa = request.form.get('current_cgpa')
+            profile.parent_occupation = request.form.get('parent_occupation')
+
+            db.session.commit()
+
+        return redirect(url_for('dashboard'))
+
+    return render_template('editprofile.html', profile=profile)
+
+
+
 
 
 @app.route("/profile")
@@ -264,7 +361,7 @@ details_part2 = [
 ]
 details_part3 = [
     'https://scholarshipforme.com/scholarships/adobe-india-women-in-technology-scholarship',
-    'https://scholarshipforme.com/scholarships/-life-s-good-scholarship-program-2024',
+    'https://scholarshipforme.com/scholarships/post-matric-scholarship-scheme-for-sc-students',
     'https://scholarshipforme.com/scholarships/dr-a-p-j-abdul-kalam-ignite',
     'https://scholarshipforme.com/scholarships/clp-india-this-scholarship',
     'https://scholarshipforme.com/scholarships/drdo-itr-chandipur-graduate-technician-diploma-apprenticeship-2023',
@@ -352,21 +449,47 @@ def parse_details(html):
     
     # Overview
     overview_list = soup.select("ul.job-overview li")
-    overview_text = "\n".join([li.get_text(strip=True) for li in overview_list])
+    overview_items = []
 
+    for li in overview_list:
+        text = li.get_text(strip=True)
+        a_tag = li.find("a")
+        link = a_tag["href"] if a_tag and a_tag.has_attr("href") else ""
+        if link:
+            overview_items.append(f"{text} ({link})")
+        else:
+            overview_items.append(text)
+
+    overview_text = "\n".join(overview_items)
 
     # How to Apply
     apply_text = ""
     job_details_div = soup.find("div", class_="job-details-body")
+
     if job_details_div:
-        p_tags = job_details_div.find_all("p")
-        if p_tags:
-            apply_text = p_tags[-1].get_text(strip=True)
+        # Find the <h6> tag with the specific "How To Apply" text
+        how_to_apply_heading = job_details_div.find("h6", class_="mb-3 mt-4", string="How To Apply")
+
+        if how_to_apply_heading:
+            # Collect all siblings after this heading until another heading or section starts
+            content = []
+            for sibling in how_to_apply_heading.find_next_siblings():
+                if sibling.name and sibling.name.startswith("h"):  # Stop at next heading
+                    break
+                content.append(sibling.get_text(strip=True))
+            
+            apply_text = " ".join(content)
+
+    # Print parsed data for debugging
+    print("\nParsed Data:")
+    print("Title:", title_text)
+    print("Overview:\n", overview_text)
+    print("How to Apply:\n", apply_text)
 
     return title_text, overview_text, apply_text
 
-# Data Update Logic
 
+# Data Update Logic
 if should_update:
     print("Starting update...")
 

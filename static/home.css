@@ -1,251 +1,279 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins'
-  }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins'
+}
 
-  body {
-    background-color: #FFF8DD;
-    color: #333;
-  }
+body {
+  background-color: #FFF8DD;
+  color: #333;
+}
 
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #fff8dd;
-    
-  }
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff8dd;
+  
+}
 
-  .logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #000000;
-    display: flex;
-    align-items: center;
-    
-  }
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  
+}
 
-  nav a {
-    margin: 0 1rem;
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    align-items: center;
-    margin-top: 20px;
-  }
+nav a {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  align-items: center;
+  margin-top: 20px;
+}
 
-  .hero {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 3rem 2rem;
-    height: 82vh;
-  }
-  #boy1
-  {
-    position: relative;
-    top: 75px;
-    right: -200px;
-    z-index: 9000;
-
-  }
-  #girl1{
-    position: relative;
-
-  }
-  .hero-text {
-    max-width: 50%;
-    padding-left: 3%;
-  }
-
-  .hero-text h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .hero-text span {  
-    color: #fca311;
-  }
-  .hero-text span1 {
-    color: #8B8A8A;
-  }
-  .hero-text button {
-    padding-left: 10%;
-    margin-top: 1rem;
-    padding: 0.7rem 1.5rem;
-    background-color: #fca311;
-    border: none;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  .login-signup p{
-    margin-top: 8px;
-    opacity: .7;
-    a{
-        text-decoration: none;
-    }
-  }
-  ul li img{
-    height: 26px;
-    width: 26px;
-  }
-
-  .features {
-    display: flex;
-    justify-content: space-around;
-    background-color: #FFB833;;
-    padding: 1rem 2rem;
-    span{
-      opacity: 0.7;
-      font-size: small;
-    }
-    img{
-      
-    }
-  }
-  .element{
-    display: flex;
-
-    .img{
-      padding: 6px;
-      border: 2px solid black;
-      border-radius: 50%;
-      margin-right: 6px;
-      padding-left: 12px;
-      padding-right: 12px;
-      padding-bottom: 8px;
-      padding-top: 12px;
-    }
-  }
-#h2{
-  margin-left: 35px;
-  span{
-    text-decoration: 5px solid gold underline;
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3rem 2rem;
+  height: 85vh;
+  h1{
+    font-weight: 450;
+    width: 500px;
   }
 }
-  .section {
-    display: flex;
-    justify-content: space-between;
-    padding: 3rem 2rem;
-  }
+#boy1
+{
+  position: relative;
+  top: 75px;
+  right: -200px;
+  z-index: 9000;
 
-  .section img {
-    width: 15%;
-    margin: 8px;
-  }
-  .sec-img{
-    height: 100%;
-    width: 100%;
-    margin-left: 30px;
-    img{
-      height: 22%;
-      width: 36%;
-    }
-    #img3{
-      width: 40%;
-      margin-left: 50px;
-    }
-  }
+}
+#girl1{
+  position: relative;
 
-  .features-col {
-    text-align: left;
-    max-width: 50%;
-    h2{
-      /* width: 50px; */
-      font-family: "Inter", sans-serif;
-      font-optical-sizing: auto;
-      font-style: normal;
-      font-size: 40px;
-      font-weight: 500;
-    }
+}
+.hero-text {
+  max-width: 50%;
+  padding-left: 3%;
+}
 
+.hero-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-text span {  
+  color: #fca311;
+}
+.hero-text span1 {
+  color: #8B8A8A;
+}
+.hero-text button {
+  padding-left: 10%;
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  background-color: #fca311;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.login-signup p{
+  margin-top: 8px;
+  opacity: .7;
+  a{
+      text-decoration: none;
   }
+}
+ul li img{
+  height: 26px;
+  width: 26px;
+}
 
-  .features-col h2 span {
-    color: #FFB833;
+.features {
+  display: flex;
+  justify-content: space-around;
+  background-color: #FFB833;;
+  padding: 1rem 2rem;
+  span{
+    opacity: 0.7;
+    font-size: small;
   }
-
-  .features-col ul {
-    margin-top: 1rem;
-    list-style: none;
-  }
-
-  .features-col li {
-    margin-bottom: 0.8rem;
-    display: flex;
-    flex-wrap: wrap;
+  img{
     
-    img{
-      height: 60px;
-      width: 60px;
-
-    }
-
   }
-  .li{
+}
+.element{
+  display: flex;
+
+  .img{
+    padding: 6px;
+    border: 2px solid black;
+    border-radius: 50%;
+    margin-right: 6px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 8px;
+    padding-top: 12px;
+  }
+}
+#h2{
+margin-left: 35px;
+span{
+  text-decoration: 5px solid gold underline;
+}
+}
+.section {
+  display: flex;
+  justify-content: space-between;
+  padding: 3rem 2rem;
+}
+
+.section img {
+  width: 15%;
+  margin: 8px;
+}
+.sec-img{
+  height: 100%;
+  width: 100%;
+  margin-left: 30px;
+  img{
+    height: 22%;
+    width: 36%;
+  }
+  #img3{
+    width: 40%;
+    margin-left: 50px;
+  }
+}
+.features-col {
+  text-align: left;
+  max-width: 50%;
+  padding-top:200px;
+}
+
+.features-col h2 {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 40px;
+  font-weight: 500;
+}
+
+.features-col h2 span {
+  color: #FFB833;
+}
+
+.features-col ul {
+  margin-top: 1rem;
+  list-style: none;
+}
+
+.features-col li {
+  margin-bottom: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.features-col li img {
+  height: 60px;
+  width: 60px;
+}
+
+.li {
+  display: flex;
+  margin-top: 16px;
+}
+
+.li img {
+  margin-right: 12px;
+}
+
+.li p {
+  opacity: .7;
+}
+
+#mid {
+  margin-left: -16px;
+}
+/* Carousel Container */
+.carousel-container {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px 50px;
+}
+
+.carousel-scroll {
+  display: flex;
+  gap: 20px;
+  padding: 10px 20px;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+
+}
+
+.carousel-scroll::-webkit-scrollbar {
+  display: none; /* hide scrollbar */
+}
+
+.card {
+  flex: 0 0 300px;
+  background-color: #fff4c2;
+  border-radius: 16px;
+  padding: 1.5rem;
+  scroll-snap-align: start;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  margin:30px;
+}
+
+.card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.card button {
+  background-color: #fca311;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.testimony {
+  padding: 4rem;
+  background-color: #FFB833;
+  text-align: left;
+  font-style: italic;
+  .img{
+    width: 100%;
+    height: 20px;
     display: flex;
-    margin-top: 16px;
     img{
-      margin-right: 12px;
-    }
-    p{
-      opacity: .7;
-    }
-  }
-  #mid{
-    margin-left: -16px;
-  }
-
-  .cards {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    padding: 2rem;
-  }
-
-  .card {
-    background-color: #fff3c4;
-    padding: 1rem;
-    border-radius: 10px;
-    width: 350px;
-    height: 250px;
-    text-align: center;
-  }
-
-  .card button {
-    margin-top: 1rem;
-    background-color: #fca311;
-    border: none;
-    padding: 0.5rem 1rem;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .testimony {
-    padding: 2rem;
-    background-color: #FFB833;
-    text-align: left;
-    font-style: italic;
-    .img{
-      width: 100%;
-      height: 20px;
-      display: flex;
-      img{
-        margin-left: 90vw;
-        height: 30px;
-        width: 30px;
-      }
+      margin-left: 90vw;
+      height: 30px;
+      width: 30px;
     }
   }
+}
 
-  footer {
-    background-color: #333;
-    color: #fff;
-    padding: 2rem;
-    text-align: center;
-  }
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 2rem;
+  text-align: center;
+
+}
